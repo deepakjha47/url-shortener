@@ -241,14 +241,5 @@ GET short_url:2PCo9kaH
 * **Cacheable service layer** → ensures fast redirects without hitting DB every request
 * **Collision-safe shortCode** using Base62 + `System.nanoTime()` loop
 * **Prepend `https://`** ensures redirect works even for missing schemes
-* Ready for **FAANG-level scalability testing**
 
 ---
-
-This README ensures anyone can:
-
-* Clone the project
-* Start MySQL + Redis
-* Build & run the app
-* Test POST + GET
-* Verify Redis caching
