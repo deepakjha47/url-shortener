@@ -9,7 +9,7 @@ A **high-performance URL shortening service** built with Java, Spring Boot, MySQ
 * Shorten long URLs with a **unique Base62 code**
 * **Redirect** short URLs to original long URLs
 * **Caching** with Redis for high-throughput reads
-* **Rate limiting** support (optional, pluggable)
+* **Rate limiting** support (100 request/min)
 * **Collision-safe** short code generation
 * Fully **RESTful API** design
 * Handles invalid or missing URL schemes
@@ -35,28 +35,44 @@ A **high-performance URL shortening service** built with Java, Spring Boot, MySQ
 ```
 src/main/java/com/deepak/urlshortener
 ├── config
-│   └── CacheConfig.java
-│   └── RedisConfig.java
+│   ├── CacheConfig.java
+│   ├── RedisConfig.java
+│   └── RateLimitConfig.java 
+│
 ├── constant
 │   └── AppConstants.java
+│
 ├── controller
-│   └── UrlShortenerController.java
+│   └── UrlShortenerController.java 
+│
 ├── domain
 │   └── ShortUrl.java
+│
 ├── dto
 │   ├── CreateShortUrlRequest.java
 │   └── CreateShortUrlResponse.java
+│
 ├── exception
-│   └── UrlNotFoundException.java
+│   ├── UrlNotFoundException.java
 │   └── GlobalExceptionHandler.java
+│
+├── ratelimit                         
+│   ├── RateLimiter.java             
+│   └── RedisRateLimiter.java 
+│
 ├── repository
 │   └── ShortUrlRepository.java
+│
 ├── service
 │   ├── UrlShortenerService.java
-│   └── impl/UrlShortenerServiceImpl.java
+│   └── impl
+│       └── UrlShortenerServiceImpl.java
+│
 ├── util
 │   └── Base62Encoder.java
+│
 └── UrlShortenerApplication.java
+
 ```
 
 ---
