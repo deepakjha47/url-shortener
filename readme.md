@@ -259,3 +259,44 @@ GET short_url:2PCo9kaH
 * **Prepend `https://`** ensures redirect works even for missing schemes
 
 ---
+
+## Design Diagram
+
+                           +----------------+
+                           |     Client     |
+                           | (Browser/API)  |
+                           +----------------+
+                                      |
+                               HTTP / HTTPS
+                                      |
+                         +-----------------------+
+                         |     Rate Limiter      |
+                         |   (Redis-backed)     |
+                         +-----------------------+
+                                      |
+                                      v
+                    +-----------------------------------+
+                    |      UrlShortenerController       |
+                    +-----------------------------------+
+                                      |
+                                      v
+                    +-----------------------------------+
+                    |       UrlShortenerService         |
+                    +-----------------------------------+
+                          |                       |
+                          |                       |
+                 +----------------+       +-------------------+
+                 |     Redis      |       |      MySQL        |
+                 |  (URL Cache)   |       | (Source of Truth) |
+                 +----------------+       +-------------------+
+                          |                       |
+                          v                       v
+                    +-----------------------------------+
+                    | Redirect / Short URL Response    |
+                    +-----------------------------------+
+                                      |
+                                      v
+                                 +---------+
+                                 | Client  |
+                                 +---------+
+---
